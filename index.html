@@ -279,6 +279,22 @@
 			font-size: large;
 		}
 		
+		#setup {
+			margin: 0 auto;
+			width: 80%;
+		}
+		
+		#setup button {
+			margin: 0 auto;
+			display: block;
+		}
+		
+		#setup label {
+			display: block;
+			margin: 0 auto;
+			width: 50%;
+		}
+		
 		#log {
 			margin: 0 auto;
 			padding: 1em;
@@ -343,13 +359,13 @@
 <body onload="initialize();" id="bd">
 	
 	<div id="setup">
-		Boosters: <input type="text" id="num_boosters"></input> 
-		First card time: <input type="text" id="first_time"></input>
-		Last Card Time: <input type="text" id="last_time"></input>
-		Review Time: <input type="text" id="review_time"></input>
-		Deckbuilding Time: <input type="text" id="deckbuilding_time"></input>
-	<br>
-	<button onclick="start();">Start</button>
+		<label>Boosters: <input type="text" id="num_boosters"></label>
+		<label>First card time: <input type="text" id="first_time"></input></label>
+		<label>Last Card Time: <input type="text" id="last_time"></input></label>
+		<label>Review Time: <input type="text" id="review_time"></input></label>
+		<label>Deckbuilding Time: <input type="text" id="deckbuilding_time"></input></label>
+
+		<button onclick="start();">Start</button>
 
 	</div>
 
