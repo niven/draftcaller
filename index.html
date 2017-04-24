@@ -6,8 +6,7 @@
 	var CONSTANTS = {
 		"cards_per_booster": 15,
 		"num_boosters": 3,
-		"first_time": 60,
-		"last_time": 15,
+		"card_selection_time": [ 40, 40, 35, 30, 25, 25, 20, 20, 15, 10, 10, 5, 5, 5 ],
 		"review_time": 60,
 		"deckbuilding_time": 10*60
 	}
@@ -90,8 +89,6 @@
 		"audio": {},
 		"status": "init",
 		"num_boosters": -1,
-		"first_time": -1,
-		"last_time": -1,
 		"review_time": -1,
 		"time_elapsed": 0,
 		"deckbuilding_time": -1
@@ -180,7 +177,7 @@
 				
 			} else { // normal pick
 				state.current_card++;
-				state.time_limit_ms = 1000 * lerp( state.first_time, state.last_time, state.current_card / CONSTANTS["cards_per_booster"] );
+				state.time_limit_ms = 1000 * CONSTANTS["card_selection_time"][ state.current_card ];
 				play_audio( state.current_booster % 2 ==  0 ? "draft_and_pass_left" : "draft_and_pass_right" );				
 			}
 	
@@ -223,12 +220,6 @@
 		}
 	}
 	
-	// t = [0,1]
-	function lerp( interval_start, interval_end, t ) {
-		// console.log( "lerp( " + interval_start + ", " + interval_end + ", " + t + ") = " + (interval_end + (1-t) * (interval_start-interval_end)) );
-		return interval_end + ( (1-t) * (interval_start-interval_end) );
-	}
-	
 	function start() {
 		
 		Object.keys(CONSTANTS).forEach( function(el, id, arr) {
@@ -240,7 +231,7 @@
 		
 		state.current_booster = 0;
 		state.current_card = 0;
-		state.time_limit_ms = 1000 * lerp( state.first_time, state.last_time, state.current_card / 15 );				
+		state.time_limit_ms = 1000 * CONSTANTS["card_selection_time"][ state.current_card ];
 
 		state.time_elapsed_ms = 0;
 		state.time_start_ms = Date.now();
@@ -360,8 +351,10 @@
 	
 	<div id="setup">
 		<label>Boosters: <input type="text" id="num_boosters"></label>
-		<label>First card time: <input type="text" id="first_time"></input></label>
-		<label>Last Card Time: <input type="text" id="last_time"></input></label>
+		<label>Speed: 
+			<input type="radio" name="speed" value="calm">Calm</input>
+			<input type="radio" name="speed" value="mtgo">MTGO</input>
+		</label>
 		<label>Review Time: <input type="text" id="review_time"></input></label>
 		<label>Deckbuilding Time: <input type="text" id="deckbuilding_time"></input></label>
 
